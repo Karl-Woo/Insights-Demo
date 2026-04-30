@@ -45,25 +45,25 @@
           <aside class="navbar">
             <div class="navtop">
               <div class="navitem active">
-                <img src="asset/dashboard.svg" alt="" class="navicon" />
+                <span class="navicon navicon--dashboard" aria-hidden="true"></span>
                 <span>Home</span>
               </div>
               <div class="navitem">
-                <img src="asset/add-circle.svg" alt="" class="navicon" />
+                <span class="navicon navicon--add-circle" aria-hidden="true"></span>
                 <span>Sale</span>
               </div>
               <div class="navitem">
-                <img src="asset/receipt.svg" alt="" class="navicon" />
+                <span class="navicon navicon--receipt" aria-hidden="true"></span>
                 <span>Orders</span>
               </div>
               <div class="navitem">
-                <img src="asset/menu.svg" alt="" class="navicon" />
+                <span class="navicon navicon--menu" aria-hidden="true"></span>
                 <span>More</span>
               </div>
             </div>
             <div class="navbottom">
               <div class="navitem">
-                <img src="asset/lock.svg" alt="" class="navicon" />
+                <span class="navicon navicon--lock" aria-hidden="true"></span>
                 <span>M.P</span>
               </div>
             </div>
@@ -150,6 +150,7 @@
                   <div class="rec-header">
                     <h2>Recommended actions</h2>
                   </div>
+                  <p class="rec-subtitle">Congratulations! You&rsquo;ve finished all today&rsquo;s recommended actions.</p>
                   <div class="rec-grid">
                     <div class="rec-card">
                       <div class="rec-top">
@@ -366,7 +367,7 @@
                   <section class="promo-section">
                     <div class="insight-label">
                       <img src="asset/search.svg" alt="" class="insight-search-ico" />
-                      <span>Insights</span>
+                      <span>Insight</span>
                     </div>
                     <p class="insight-desc">We noticed there&rsquo;s a gap between your average ticket size and the top performers in your area.</p>
 
@@ -375,14 +376,14 @@
                         <div class="ticket-row">
                           <div class="ticket-row-info">
                             <span class="ticket-name">Upper Crust Bakery</span>
-                            <div class="ticket-bar"><i class="ticket-bar-fill ticket-bar-fill--us" style="width: 60%"></i></div>
+                            <div class="ticket-bar"><i class="ticket-bar-fill ticket-bar-fill--us" style="width: 425px"></i></div>
                           </div>
                           <span class="ticket-value">$11.40</span>
                         </div>
                         <div class="ticket-row">
                           <div class="ticket-row-info">
                             <span class="ticket-name">Top 25%</span>
-                            <div class="ticket-bar"><i class="ticket-bar-fill ticket-bar-fill--top" style="width: 80%"></i></div>
+                            <div class="ticket-bar"><i class="ticket-bar-fill ticket-bar-fill--top" style="width: 567px"></i></div>
                           </div>
                           <span class="ticket-value">$15.30</span>
                         </div>
@@ -410,7 +411,7 @@
                       <img src="asset/star.svg" alt="" class="insight-ai-ico" />
                       <span>Recommendation</span>
                     </div>
-                    <p class="insight-desc">Based on the trending item. I would recommend running an online campaign.</p>
+                    <p class="insight-desc">Run an online campaign to promote your top trending items.</p>
 
                     <div class="campaign-card">
                       <div class="campaign-hero">
@@ -444,37 +445,58 @@
                             <span class="channels-dot"></span>
                             <span>Channels</span>
                           </div>
-                          <div class="channels-list">
-                            <div class="channel-row">
+                          <div class="channels-grid">
+                            <div class="channel-card">
                               <img src="asset/brand/instagram.png" alt="" class="channel-icon" />
                               <div class="channel-text">
-                                <p class="channel-name">Instagram</p>
+                                <div class="channel-name-row">
+                                  <p class="channel-name">Instagram</p>
+                                  <img src="asset/success.svg" alt="" class="channel-check" />
+                                </div>
                                 <p class="channel-status">Caption drafted</p>
                               </div>
-                              <img src="asset/success.svg" alt="" class="channel-check" />
+                              <ul class="channel-stats">
+                                <li><span class="channel-stat-label">Total budget</span><span class="channel-stat-value">$100</span></li>
+                                <li><span class="channel-stat-label">Duration</span><span class="channel-stat-value">14 days</span></li>
+                                <li><span class="channel-stat-label">Estimated reach</span><span class="channel-stat-value">2k-3.5k</span></li>
+                              </ul>
                             </div>
-                            <div class="channel-row">
+                            <div class="channel-card">
                               <img src="asset/brand/tiktok.png" alt="" class="channel-icon channel-icon--rounded" />
                               <div class="channel-text">
-                                <p class="channel-name">TikTok</p>
+                                <div class="channel-name-row">
+                                  <p class="channel-name">TikTok</p>
+                                  <img src="asset/success.svg" alt="" class="channel-check" />
+                                </div>
                                 <p class="channel-status">Short-form hook drafted</p>
                               </div>
-                              <img src="asset/success.svg" alt="" class="channel-check" />
+                              <ul class="channel-stats">
+                                <li><span class="channel-stat-label">Total budget</span><span class="channel-stat-value">$50</span></li>
+                                <li><span class="channel-stat-label">Duration</span><span class="channel-stat-value">7 days</span></li>
+                                <li><span class="channel-stat-label">Estimated reach</span><span class="channel-stat-value">800-1k</span></li>
+                              </ul>
                             </div>
-                            <div class="channel-row">
+                            <div class="channel-card">
                               <img src="asset/brand/google-ads.png" alt="" class="channel-icon" />
                               <div class="channel-text">
-                                <p class="channel-name">Google Ads</p>
+                                <div class="channel-name-row">
+                                  <p class="channel-name">Google Ads</p>
+                                  <img src="asset/success.svg" alt="" class="channel-check" />
+                                </div>
                                 <p class="channel-status">Smart local ads prepared</p>
                               </div>
-                              <img src="asset/success.svg" alt="" class="channel-check" />
+                              <ul class="channel-stats">
+                                <li><span class="channel-stat-label">Total budget</span><span class="channel-stat-value">$200</span></li>
+                                <li><span class="channel-stat-label">Duration</span><span class="channel-stat-value">14 days</span></li>
+                                <li><span class="channel-stat-label">Estimated reach</span><span class="channel-stat-value">5k-8k</span></li>
+                              </ul>
                             </div>
                           </div>
                         </div>
 
                         <div class="campaign-actions">
-                          <button class="btn-edit" type="button">Edit</button>
-                          <button class="btn-save" type="button">Save</button>
+                          <button class="btn-edit" type="button">Preview ads</button>
+                          <button class="btn-save btn-launch-campaign" type="button">Launch</button>
                         </div>
                       </div>
                     </div>
@@ -626,7 +648,7 @@
 
                         <div class="reward-actions">
                           <button class="btn-edit" type="button">Edit plan</button>
-                          <button class="btn-save" type="button">Send promotion</button>
+                          <button class="btn-save btn-send-promotion" type="button">Send promotion</button>
                         </div>
                       </div>
                     </div>
@@ -665,7 +687,7 @@
                       <img src="asset/star.svg" alt="" class="insight-ai-ico" />
                       <span>Recommendation</span>
                     </div>
-                    <p class="insight-desc">Order more kitchen equipment to speed up your operation. We have capital available to fund your expansion.</p>
+                    <p class="insight-desc">Order more kitchen equipment to speed up your operation with funds from Clover Capital.</p>
 
                     <div class="capital-card">
                       <div class="capital-offer">
@@ -712,12 +734,62 @@
                         </div>
 
                         <div class="capital-actions">
-                          <button class="btn-options" type="button">View other options</button>
-                          <button class="btn-secure" type="button">Tap to secure funding</button>
+                          <button class="btn-options" type="button">Save for later</button>
+                          <button class="btn-secure btn-select-funding" type="button">Select funding amount</button>
                         </div>
                       </div>
                     </div>
                   </section>
+                </div>
+
+                <!-- ====== CAPITAL FUNDING content (after Select funding amount) ====== -->
+                <div class="insight-content insight-content--capital-funding">
+                  <p class="funding-heading">Grow with funds from your own sales</p>
+                  <p class="funding-desc">Draw from a cash advance with a fixed, one time fee, no interest, and no penalties. Automatically pay back your advance when you make sales.</p>
+
+                  <div class="funding-card">
+                    <div class="funding-card-head">
+                      <img src="asset/capital.svg" alt="" class="funding-card-ico" />
+                      <span class="funding-card-title">Select funding amount</span>
+                      <span class="funding-card-prequal">Pre-qualified</span>
+                    </div>
+
+                    <div class="funding-card-body">
+                      <p class="funding-amount" data-prefix="">45,000</p>
+
+                      <div class="funding-slider">
+                        <div class="funding-ticks" aria-hidden="true"></div>
+                        <input
+                          type="range"
+                          class="funding-range"
+                          min="500"
+                          max="45000"
+                          step="100"
+                          value="45000"
+                          aria-label="Funding amount"
+                        />
+                      </div>
+
+                      <div class="funding-metrics">
+                        <div class="funding-metric">
+                          <p class="funding-metric-label">Daily sales paid back</p>
+                          <p class="funding-metric-value">5%</p>
+                        </div>
+                        <div class="funding-metric-divider" aria-hidden="true"></div>
+                        <div class="funding-metric">
+                          <p class="funding-metric-label">Fixed one-time fee</p>
+                          <p class="funding-metric-value">$300</p>
+                        </div>
+                      </div>
+
+                      <div class="funding-actions">
+                        <button class="btn-options" type="button">Learn more</button>
+                        <button class="btn-secure btn-apply-now" type="button">Apply now</button>
+                      </div>
+
+                      <a class="funding-terms" href="#" onclick="event.preventDefault()">Terms and conditions</a>
+                    </div>
+                  </div>
                 </div>
 
               </div>
@@ -814,7 +886,14 @@
       const insightLeft   = insight && insight.querySelector('.insight-left');
       const backBtn       = insight && insight.querySelector('.back-btn');
       const titleEl       = insight && insight.querySelector('.topbar-insight .topbar-title');
+      const navTopItems   = document.querySelectorAll('.navtop .navitem');
       if (!insight || !backBtn || !titleEl) return;
+
+      // Highlight the navbar item by index in .navtop. Capital-funding is the
+      // only view that shifts the active state off Home (it lives under More).
+      function setNavActive(idx) {
+        navTopItems.forEach((el, i) => el.classList.toggle('active', i === idx));
+      }
 
       function open(view, title) {
         document.body.setAttribute('data-view', view);
@@ -822,6 +901,9 @@
         document.body.classList.add('insight-open');
         insight.classList.add('open');
         insight.setAttribute('aria-hidden', 'false');
+        // Capital funding lives in the More section of the app; every other
+        // view keeps the default Home highlight.
+        setNavActive(view === 'capital-funding' ? 3 : 0);
         // Reset scroll on the left column whenever a view opens
         if (insightLeft) insightLeft.scrollTop = 0;
       }
@@ -829,6 +911,7 @@
         document.body.classList.remove('insight-open');
         insight.classList.remove('open');
         insight.setAttribute('aria-hidden', 'true');
+        setNavActive(0);
       }
 
       if (briefing) {
@@ -843,23 +926,87 @@
         });
       }
       if (promotionsCard) {
-        promotionsCard.addEventListener('click', () => open('promotions', 'Your competitors are selling more'));
+        promotionsCard.addEventListener('click', () => {
+          if (promotionsCard.classList.contains('rec-card--completed')) return;
+          open('promotions', 'Your competitors are selling more');
+        });
       }
       if (rewardsCard) {
-        rewardsCard.addEventListener('click', () => open('rewards', 'Your wallet share is declining'));
+        rewardsCard.addEventListener('click', () => {
+          if (rewardsCard.classList.contains('rec-card--completed')) return;
+          open('rewards', 'Your wallet share is declining');
+        });
       }
       if (capitalCard) {
-        capitalCard.addEventListener('click', () => open('capital', 'Fund your next growth phase'));
+        capitalCard.addEventListener('click', () => {
+          if (capitalCard.classList.contains('rec-card--completed')) return;
+          open('capital', 'Fund your next growth phase');
+        });
       }
+
+      // "Select funding amount" inside the capital recommendation swaps the
+      // current insight view to the Clover Capital funding page (sub-view of
+      // More). Title + nav highlight update; chat suggestions reuse capital.
+      const selectFundingBtn = document.querySelector('.btn-select-funding');
+      if (selectFundingBtn) {
+        selectFundingBtn.addEventListener('click', () => {
+          open('capital-funding', 'Clover Capital');
+        });
+      }
+
       backBtn.addEventListener('click', () => {
+        // Capital-funding is a sub-view of the capital recommendation; back
+        // returns to that page rather than closing the insight entirely.
+        if (document.body.getAttribute('data-view') === 'capital-funding') {
+          open('capital', 'Fund your next growth phase');
+          return;
+        }
         close();
         if (window.__reviewTypewriter) window.__reviewTypewriter.cancel();
       });
 
-      // Esc as a convenience
+      // Esc as a convenience — mirrors the back button behavior
       window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && insight.classList.contains('open')) close();
+        if (e.key !== 'Escape' || !insight.classList.contains('open')) return;
+        if (document.body.getAttribute('data-view') === 'capital-funding') {
+          open('capital', 'Fund your next growth phase');
+        } else {
+          close();
+        }
       });
+
+      // Populate the funding slider's tick ruler. 56 ticks — every 5th is
+      // a "major" (taller, slightly thicker) mark to match the design.
+      const ticksHost = document.querySelector('.funding-ticks');
+      if (ticksHost && !ticksHost.children.length) {
+        const TICK_COUNT = 56;
+        const frag = document.createDocumentFragment();
+        for (let i = 0; i < TICK_COUNT; i++) {
+          const t = document.createElement('i');
+          t.className = (i % 5 === 0) ? 'funding-tick funding-tick--major' : 'funding-tick';
+          frag.appendChild(t);
+        }
+        ticksHost.appendChild(frag);
+      }
+
+      // Wire the funding range slider to the amount display + green-fill
+      // gradient. Range is $500–$45,000; default is the right end so the
+      // user sees the maximum offer first.
+      const fundingRange  = document.querySelector('.funding-range');
+      const fundingAmount = document.querySelector('.funding-amount');
+      if (fundingRange && fundingAmount) {
+        const fmt = (n) => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        function syncFunding() {
+          const v   = Number(fundingRange.value);
+          const min = Number(fundingRange.min);
+          const max = Number(fundingRange.max);
+          const pct = ((v - min) / (max - min)) * 100;
+          fundingRange.style.setProperty('--progress', pct + '%');
+          fundingAmount.textContent = fmt(v);
+        }
+        fundingRange.addEventListener('input', syncFunding);
+        syncFunding();
+      }
     })();
 
     /* ---------- Typewriter effect on the Suggested Response ----------
@@ -917,25 +1064,47 @@
     })();
 
     /* ---------- Send → loading → task-complete → home flow ----------
-       Wires the .btn-send (Suggested Response) so the user sees:
-         1. Loader overlay with "Sending messages..."
+       Two send buttons share this flow:
+         • .btn-send (customer-review Suggested Response) →
+             "Sending messages..." → customer card moves to completed.
+         • .btn-send-promotion (rewards win-back Send promotion) →
+             "Sending promotion..." → rewards card moves to completed.
+       The user sees:
+         1. Loader overlay with the appropriate text
          2. Lottie "Stars to Check" animation plays (lottie-web, JSON)
          3. On complete → text swaps to "Task complete"
          4. After 1s → insight view closes back to homepage
-         5. Customer rec-card mutates to its completed state, FLIP-
+         5. Triggering rec-card mutates to its completed state, FLIP-
             animates from its old slot to the last grid position
             while the other cards smoothly slide up to fill the gap.
     */
     (function () {
-      const sendBtn      = document.querySelector('.btn-send');
+      const reviewSendBtn     = document.querySelector('.btn-send');
+      const rewardsSendBtn    = document.querySelector('.btn-send-promotion');
+      const promotionsSendBtn = document.querySelector('.btn-launch-campaign');
+      const capitalApplyBtn   = document.querySelector('.btn-apply-now');
       const insightView  = document.querySelector('.insight-view');
       const overlay      = document.querySelector('.task-loading');
       const overlayText  = document.querySelector('.task-loading-text');
       const lottieHost   = document.querySelector('.task-loading-anim');
       const recCardsAll  = document.querySelectorAll('.rec-card');
-      const customerCardEl = recCardsAll[0];
+      const customerCardEl   = recCardsAll[0];
+      const promotionsCardEl = recCardsAll[1];
+      const rewardsCardEl    = recCardsAll[2];
+      const capitalCardEl    = recCardsAll[3];
+      const navTopItemsAll   = document.querySelectorAll('.navtop .navitem');
       const recGrid      = document.querySelector('.rec-grid');
-      if (!sendBtn || !insightView || !overlay || !overlayText || !lottieHost || !customerCardEl || !recGrid) return;
+      const recSection   = document.querySelector('.rec-section');
+      if (!insightView || !overlay || !overlayText || !lottieHost || !recGrid) return;
+
+      // Toggle the "all-completed" subtitle on the rec-section once every
+      // recommended-action card has reached its completed state.
+      function checkAllCompleted() {
+        if (!recSection) return;
+        const total = recCardsAll.length;
+        const done  = recGrid.querySelectorAll('.rec-card--completed').length;
+        recSection.classList.toggle('all-completed', total > 0 && done === total);
+      }
 
       // Lazily create the lottie instance the first time Send is pressed
       // so script-load order doesn't matter.
@@ -959,11 +1128,23 @@
       const TEXT_SWAP_MS = 3500;
       const FADE_OUT_MS  = 5000;
 
+      // Close after a send flow. The loading overlay must keep covering
+      // the insight-left through the insight-view's 380ms fade so the
+      // previous insight content (review draft / promo card) doesn't
+      // flash back into view for one frame as the view dismisses.
+      // The .insight-view fade transition is 380ms — we hold the
+      // overlay slightly longer (420ms) to be safe.
+      const CLOSE_FADE_MS = 420;
       function closeInsight() {
         document.body.classList.remove('insight-open');
         insightView.classList.remove('open');
-        insightView.classList.remove('task-loading-active');
         insightView.setAttribute('aria-hidden', 'true');
+        // Reset the left-nav highlight to Home — capital-funding flips it
+        // to More, so a send flow that completes from there must restore it.
+        navTopItemsAll.forEach((el, i) => el.classList.toggle('active', i === 0));
+        setTimeout(() => {
+          insightView.classList.remove('task-loading-active');
+        }, CLOSE_FADE_MS);
       }
 
       // FLIP shuffle — captures old positions, mutates the DOM, then
@@ -1042,52 +1223,129 @@
           if (descEl) descEl.textContent = 'View your comments';
           recGrid.appendChild(customerCardEl);
         });
+        checkAllCompleted();
       }
 
-      let inFlight = false;
-      sendBtn.addEventListener('click', () => {
-        if (inFlight) return;
-        inFlight = true;
+      // Promotions card mutates to an "Activated a campaign" tile: muted
+      // background (shared completed style), the iconbox swaps the storefront
+      // glyph for the carnival-shop glyph, and the title gains a green check.
+      function markPromotionsComplete() {
+        if (!promotionsCardEl) return;
+        if (promotionsCardEl.classList.contains('rec-card--completed')) return;
+        flipShuffle(() => {
+          promotionsCardEl.classList.add('rec-card--completed');
+          const iconImg = promotionsCardEl.querySelector('.rec-iconbox img');
+          const titleEl = promotionsCardEl.querySelector('.rec-title');
+          const descEl  = promotionsCardEl.querySelector('.rec-desc');
+          if (iconImg) iconImg.src = 'asset/storefront.svg';
+          if (titleEl) {
+            titleEl.innerHTML =
+              'Activated a campaign <img src="asset/success.svg" alt="" class="rec-title-check" />';
+          }
+          if (descEl) descEl.textContent = 'View your campaign status';
+          recGrid.appendChild(promotionsCardEl);
+        });
+        checkAllCompleted();
+      }
 
-        if (window.__reviewTypewriter) window.__reviewTypewriter.cancel();
+      // Capital card mutates to a "Submitted Clover Capital application"
+      // tile: muted background, performance-increase glyph, green check.
+      function markCapitalComplete() {
+        if (!capitalCardEl) return;
+        if (capitalCardEl.classList.contains('rec-card--completed')) return;
+        flipShuffle(() => {
+          capitalCardEl.classList.add('rec-card--completed');
+          const iconImg = capitalCardEl.querySelector('.rec-iconbox img');
+          const titleEl = capitalCardEl.querySelector('.rec-title');
+          const descEl  = capitalCardEl.querySelector('.rec-desc');
+          if (iconImg) iconImg.src = 'asset/performance-increase.svg';
+          if (titleEl) {
+            titleEl.innerHTML =
+              'Submitted Clover Capital application <img src="asset/success.svg" alt="" class="rec-title-check" />';
+          }
+          if (descEl) descEl.textContent = 'Prepare for you next expansion';
+          recGrid.appendChild(capitalCardEl);
+        });
+        checkAllCompleted();
+      }
 
-        // Reset text and show loader.
-        overlayText.textContent = 'Sending messages...';
-        overlayText.classList.remove('is-swapping');
-        insightView.classList.add('task-loading-active');
+      // Rewards card mutates to a "Scheduled win-back promo" tile: muted
+      // background (shared completed style), the iconbox swaps the cheer
+      // glyph for the high-five glyph, and the title gains a green check.
+      function markRewardsComplete() {
+        if (!rewardsCardEl) return;
+        if (rewardsCardEl.classList.contains('rec-card--completed')) return;
+        flipShuffle(() => {
+          rewardsCardEl.classList.add('rec-card--completed');
+          const iconImg = rewardsCardEl.querySelector('.rec-iconbox img');
+          const titleEl = rewardsCardEl.querySelector('.rec-title');
+          const descEl  = rewardsCardEl.querySelector('.rec-desc');
+          if (iconImg) iconImg.src = 'asset/highfive.svg';
+          if (titleEl) {
+            titleEl.innerHTML =
+              'Scheduled win-back promo <img src="asset/success.svg" alt="" class="rec-title-check" />';
+          }
+          if (descEl) descEl.textContent = 'See your message schedules';
+          recGrid.appendChild(rewardsCardEl);
+        });
+        checkAllCompleted();
+      }
 
-        // Play the lottie from frame 0
-        const a = ensureAnim();
-        if (a) {
-          a.goToAndStop(0, true);
-          a.play();
-        }
+      // Generic send-flow runner. Each call wires one button to the
+      // shared loading overlay + close + card mutation sequence with
+      // its own loading copy and completion handler.
+      function wireSendFlow(button, loadingText, onComplete) {
+        if (!button) return;
+        let inFlight = false;
+        button.addEventListener('click', () => {
+          if (inFlight) return;
+          inFlight = true;
 
-        // Beat 1 — at 4s, swap text to "Task complete"
-        const swapTimer = setTimeout(() => {
-          overlayText.classList.add('is-swapping');
-          setTimeout(() => {
-            overlayText.textContent = 'Task complete';
-            overlayText.classList.remove('is-swapping');
-          }, 220);
-        }, TEXT_SWAP_MS);
+          if (window.__reviewTypewriter) window.__reviewTypewriter.cancel();
 
-        // Beat 2 — at 5s, close the insight view (fades back to home).
-        // The card mutation + FLIP runs right as the close kicks in so the
-        // shuffle is visible while the page reveals.
-        const closeTimer = setTimeout(() => {
-          closeInsight();
-          setTimeout(markCustomerComplete, 240);
-          inFlight = false;
-        }, FADE_OUT_MS);
+          // Reset text and show loader.
+          overlayText.textContent = loadingText;
+          overlayText.classList.remove('is-swapping');
+          insightView.classList.add('task-loading-active');
 
-        // Defensive: if the user navigates away mid-flight, cancel timers
-        sendBtn.__cancelSendFlow = () => {
-          clearTimeout(swapTimer);
-          clearTimeout(closeTimer);
-          inFlight = false;
-        };
-      });
+          // Play the lottie from frame 0
+          const a = ensureAnim();
+          if (a) {
+            a.goToAndStop(0, true);
+            a.play();
+          }
+
+          // Beat 1 — at 4s, swap text to "Task complete"
+          const swapTimer = setTimeout(() => {
+            overlayText.classList.add('is-swapping');
+            setTimeout(() => {
+              overlayText.textContent = 'Task complete';
+              overlayText.classList.remove('is-swapping');
+            }, 220);
+          }, TEXT_SWAP_MS);
+
+          // Beat 2 — at 5s, close the insight view (fades back to home).
+          // The card mutation + FLIP runs right as the close kicks in so
+          // the shuffle is visible while the page reveals.
+          const closeTimer = setTimeout(() => {
+            closeInsight();
+            setTimeout(onComplete, 240);
+            inFlight = false;
+          }, FADE_OUT_MS);
+
+          // Defensive: if the user navigates away mid-flight, cancel timers
+          button.__cancelSendFlow = () => {
+            clearTimeout(swapTimer);
+            clearTimeout(closeTimer);
+            inFlight = false;
+          };
+        });
+      }
+
+      wireSendFlow(reviewSendBtn,     'Sending messages...',       markCustomerComplete);
+      wireSendFlow(rewardsSendBtn,    'Sending promotion...',      markRewardsComplete);
+      wireSendFlow(promotionsSendBtn, 'launching the campaign...', markPromotionsComplete);
+      wireSendFlow(capitalApplyBtn,   'Submitting application...', markCapitalComplete);
     })();
 
     /* ---------- Cursor-tracked spotlight on Recommended cards ----------

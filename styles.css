@@ -250,21 +250,29 @@ body.intro .ai-star {
 
 /* ---------- Stage / iPad container ---------- */
 .stage {
-  min-height: 100vh;
+  height: 100vh;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 32px;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 /* The iPad has the bezel image as the container.
    Bezel.png natural size ≈ 1990x1404. We render at fixed
    width and use the screen overlay sized to match the inner
-   screen area precisely. */
+   screen area precisely.
+
+   Width is the smallest of: design max, available viewport width,
+   or the width derived from available viewport height via aspect
+   ratio. The height-derived term ensures the iPad scales down to
+   fit when the viewport is shorter than it is wide — keeping the
+   whole device visible in the first screen without scroll. */
 .ipad {
   position: relative;
-  width: min(1480px, calc(100vw - 64px));
+  width: min(1480px, calc(100vw - 64px), calc((100vh - 64px) * 1990 / 1404));
   aspect-ratio: 1990 / 1404;
   filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.18));
 }
@@ -373,7 +381,42 @@ body.intro .ai-star {
   color: #228800;
   border-left-color: #228800;
 }
-.navicon { width: 24px; height: 24px; display: block; }
+/* Mask-based icons so the stroke color follows the active state. The
+   per-icon modifier supplies the silhouette via mask-image; background-
+   color controls the rendered color (gray when inactive, green active). */
+.navicon {
+  width: 24px;
+  height: 24px;
+  display: block;
+  background-color: #5A5A5A;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+}
+.navitem.active .navicon { background-color: #228800; }
+.navicon--dashboard {
+  -webkit-mask-image: url(asset/dashboard.svg);
+          mask-image: url(asset/dashboard.svg);
+}
+.navicon--add-circle {
+  -webkit-mask-image: url(asset/add-circle.svg);
+          mask-image: url(asset/add-circle.svg);
+}
+.navicon--receipt {
+  -webkit-mask-image: url(asset/receipt.svg);
+          mask-image: url(asset/receipt.svg);
+}
+.navicon--menu {
+  -webkit-mask-image: url(asset/menu.svg);
+          mask-image: url(asset/menu.svg);
+}
+.navicon--lock {
+  -webkit-mask-image: url(asset/lock.svg);
+          mask-image: url(asset/lock.svg);
+}
 
 /* ---------- Main Content ---------- */
 .content {
@@ -689,6 +732,28 @@ body.intro .ai-star {
   font-weight: 500;
   line-height: 24px;
   color: #000;
+}
+/* Shown only when every recommended action has reached its completed
+   state. Sits 8px below the heading (the rec-section gap is 12px, so a
+   -4px margin-top tightens it) and 12px above the grid (the natural gap).
+   Intro animation runs after the last FLIP shuffle settles. */
+.rec-subtitle {
+  margin: -4px 0 0 0;
+  font-family: 'Graphik', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #5A5A5A;
+  display: none;
+}
+.rec-section.all-completed .rec-subtitle {
+  display: block;
+  animation: fx-subtitle-in 720ms cubic-bezier(0.16, 1, 0.3, 1) 240ms both;
+}
+@keyframes fx-subtitle-in {
+  0%   { opacity: 0; transform: translateY(-10px); filter: blur(4px); }
+  60%  { opacity: 1; filter: blur(0); }
+  100% { opacity: 1; transform: translateY(0); filter: blur(0); }
 }
 .rec-grid {
   display: grid;
@@ -1371,16 +1436,18 @@ body.insight-open .rec-items li:nth-child(3) {
 .insight-content { display: none; flex-direction: column; gap: 12px; width: 100%; }
 .chat-bubbles    { display: none; flex-direction: column; align-items: flex-end; gap: 8px; width: 100%; }
 
-body[data-view="art-walk"]   .insight-content--art-walk,
-body[data-view="review"]     .insight-content--review,
-body[data-view="promotions"] .insight-content--promotions,
-body[data-view="rewards"]    .insight-content--rewards,
-body[data-view="capital"]    .insight-content--capital,
-body[data-view="art-walk"]   .chat-bubbles--art-walk,
-body[data-view="review"]     .chat-bubbles--review,
-body[data-view="promotions"] .chat-bubbles--promotions,
-body[data-view="rewards"]    .chat-bubbles--rewards,
-body[data-view="capital"]    .chat-bubbles--capital {
+body[data-view="art-walk"]        .insight-content--art-walk,
+body[data-view="review"]          .insight-content--review,
+body[data-view="promotions"]      .insight-content--promotions,
+body[data-view="rewards"]         .insight-content--rewards,
+body[data-view="capital"]         .insight-content--capital,
+body[data-view="capital-funding"] .insight-content--capital-funding,
+body[data-view="art-walk"]        .chat-bubbles--art-walk,
+body[data-view="review"]          .chat-bubbles--review,
+body[data-view="promotions"]      .chat-bubbles--promotions,
+body[data-view="rewards"]         .chat-bubbles--rewards,
+body[data-view="capital"]         .chat-bubbles--capital,
+body[data-view="capital-funding"] .chat-bubbles--capital {
   display: flex;
 }
 
@@ -1442,10 +1509,6 @@ body[data-view="capital"]    .chat-bubbles--capital {
   height: 16px;
   width: auto;
   display: block;
-  /* Nudge down so the logo baseline aligns with the "Powered by" baseline.
-     The SVG canvas reserves room for the "g" descender, which pulls the
-     glyphs visually upward when the image is center-aligned. */
-  transform: translateY(2px);
 }
 .review-body {
   display: flex;
@@ -1611,14 +1674,16 @@ body[data-view="review"].insight-open .chat-bubbles--review .chat-bubble:nth-chi
    hidden so the content stays at the design width (753px). */
 body[data-view="promotions"] .insight-left,
 body[data-view="rewards"] .insight-left,
-body[data-view="capital"] .insight-left {
+body[data-view="capital"] .insight-left,
+body[data-view="capital-funding"] .insight-left {
   overflow-y: auto;
   min-height: 0;
   scrollbar-width: none;          /* Firefox */
 }
 body[data-view="promotions"] .insight-left::-webkit-scrollbar,
 body[data-view="rewards"] .insight-left::-webkit-scrollbar,
-body[data-view="capital"] .insight-left::-webkit-scrollbar {
+body[data-view="capital"] .insight-left::-webkit-scrollbar,
+body[data-view="capital-funding"] .insight-left::-webkit-scrollbar {
   display: none;                  /* WebKit */
 }
 
@@ -1783,7 +1848,6 @@ body[data-view="capital"] .insight-left::-webkit-scrollbar {
 }
 .campaign-hero-text {
   flex: 0 1 auto;
-  max-width: 70%;
   display: flex;
   flex-direction: column;
   gap: 0;
@@ -1791,10 +1855,11 @@ body[data-view="capital"] .insight-left::-webkit-scrollbar {
 .campaign-hero-title {
   margin: 0;
   font-family: 'Graphik', sans-serif;
-  font-size: 24px;
+  font-size: 32px;
   font-weight: 600;
-  line-height: 32px;
+  line-height: 40px;
   color: #ffffff;
+  white-space: nowrap;
 }
 .campaign-hero-sub {
   margin: 0;
@@ -1822,8 +1887,8 @@ body[data-view="capital"] .insight-left::-webkit-scrollbar {
 .campaign-body {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 16px 12px 12px;
+  gap: 24px;
+  padding: 24px 12px 12px;
 }
 
 /* ---------- Two metric blocks separated by divider ---------- */
@@ -1831,7 +1896,7 @@ body[data-view="capital"] .insight-left::-webkit-scrollbar {
   display: flex;
   align-items: center;
   gap: 12px;
-  height: 88px;
+  min-height: 88px;
 }
 .campaign-metric {
   flex: 1 1 0;
@@ -1852,9 +1917,9 @@ body[data-view="capital"] .insight-left::-webkit-scrollbar {
 .campaign-metric-value {
   margin: 0;
   font-family: 'Graphik', sans-serif;
-  font-size: 24px;
+  font-size: 32px;
   font-weight: 600;
-  line-height: 32px;
+  line-height: 40px;
   text-align: center;
   background: linear-gradient(-18deg, #195278 23%, #62AEB1 99%);
   -webkit-background-clip: text;
@@ -1906,34 +1971,41 @@ body[data-view="capital"] .insight-left::-webkit-scrollbar {
   animation: fx-dot-breathe 2.4s ease-in-out infinite;
   transform-origin: center;
 }
-.channels-list {
+/* 3-column grid of vertical channel cards. Each card stacks:
+   icon → name + check → status → stats list (budget / duration / reach). */
+.channels-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  align-items: stretch;
+}
+.channel-card {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-}
-.channel-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 8px 16px;
+  gap: 16px;
+  padding: 12px;
   background: #F5F5F5;
   border-radius: 16px;
 }
 .channel-icon {
-  width: 24px;
-  height: 24px;
+  width: 40px;
+  height: 40px;
   display: block;
   object-fit: cover;
-  flex: 0 0 24px;
+  flex: 0 0 40px;
 }
 .channel-icon--rounded {
-  border-radius: 6px;
+  border-radius: 8px;
 }
 .channel-text {
-  flex: 1 1 0;
-  min-width: 0;
   display: flex;
   flex-direction: column;
+  gap: 4px;
+}
+.channel-name-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
 }
 .channel-name {
   margin: 0;
@@ -1957,6 +2029,27 @@ body[data-view="capital"] .insight-left::-webkit-scrollbar {
   height: 24px;
   display: block;
 }
+/* Per-channel stat rows: label on the left (medium), value on the right (regular). */
+.channel-stats {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+.channel-stats li {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  font-family: 'Graphik', sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  color: #5A5A5A;
+  white-space: nowrap;
+}
+.channel-stat-label { font-weight: 500; }
+.channel-stat-value { font-weight: 400; }
 
 /* ---------- Edit / Save buttons (mirrors response-actions) ---------- */
 .campaign-actions {
@@ -3002,4 +3095,220 @@ body[data-view="capital"].insight-open .chat-bubbles--capital .chat-bubble:nth-c
   height: 24px;
   display: inline-block;
   flex: 0 0 24px;
+}
+
+/* ===========================================================
+   CAPITAL FUNDING view — opened by tapping "Select funding amount"
+   on the capital recommendation. Heading + description + a
+   gradient-headed card with a slider, two metric blocks,
+   buttons, and a terms link.
+   =========================================================== */
+.insight-content--capital-funding {
+  gap: 12px;
+}
+.funding-heading {
+  margin: 0;
+  font-family: 'Graphik', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  color: #000;
+}
+.funding-desc {
+  margin: 0 0 12px 0;
+  font-family: 'Graphik', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #5A5A5A;
+}
+.funding-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #E5E5E5;
+}
+.funding-card-head {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 16px;
+  background: linear-gradient(-16deg, #165A00 14%, #208000 85%);
+}
+.funding-card-ico {
+  width: 24px;
+  height: 24px;
+  display: block;
+  filter: brightness(0) invert(1);
+}
+.funding-card-title {
+  flex: 1 1 0;
+  min-width: 0;
+  font-family: 'Graphik', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  color: #ffffff;
+}
+.funding-card-prequal {
+  font-family: 'Graphik', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  color: #ffffff;
+  opacity: 0.8;
+}
+.funding-card-body {
+  background: #ffffff;
+  padding: 32px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+}
+.funding-amount {
+  margin: 0;
+  font-family: 'Graphik', sans-serif;
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 52px;
+  color: #228800;
+  text-align: center;
+}
+/* Slider — tick marks ruler under a green progress + circle handle. */
+.funding-slider {
+  width: 100%;
+  padding: 0 20px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: stretch;
+}
+.funding-ticks {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 20px;
+  padding: 0 4.5px;
+}
+.funding-tick {
+  width: 1px;
+  height: 16px;
+  background: #d5d5d5;
+  display: inline-block;
+}
+.funding-tick--major {
+  width: 2px;
+  height: 20px;
+}
+/* Native range input styled to match the design — green progress fill up
+   to the thumb, white circular thumb with a green border. The fill is a
+   linear-gradient on the track driven by --progress (set by JS on input). */
+.funding-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 32px;        /* tall enough for the 32px thumb hit-target */
+  background: transparent;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  --progress: 100%;
+}
+.funding-range:focus { outline: none; }
+.funding-range::-webkit-slider-runnable-track {
+  height: 10px;
+  border-radius: 8px;
+  background: linear-gradient(to right,
+    #228800 0,
+    #228800 var(--progress),
+    #c7c7c7 var(--progress),
+    #c7c7c7 100%);
+}
+.funding-range::-moz-range-track {
+  height: 10px;
+  border-radius: 8px;
+  background: linear-gradient(to right,
+    #228800 0,
+    #228800 var(--progress),
+    #c7c7c7 var(--progress),
+    #c7c7c7 100%);
+}
+.funding-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid #228800;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  margin-top: -11px;       /* center the 32px thumb on the 10px track */
+  cursor: pointer;
+}
+.funding-range::-moz-range-thumb {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid #228800;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+}
+.funding-metrics {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 88px;
+  width: 100%;
+}
+.funding-metric {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.funding-metric-label {
+  margin: 0;
+  font-family: 'Graphik', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  color: #5C5C5C;
+}
+.funding-metric-value {
+  margin: 0;
+  font-family: 'Graphik', sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 32px;
+  text-align: center;
+  background: linear-gradient(-75deg, #165A00 14%, #208000 85%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  white-space: nowrap;
+}
+.funding-metric-divider {
+  width: 1px;
+  align-self: stretch;
+  background: #E5E5E5;
+}
+.funding-actions {
+  display: flex;
+  gap: 16px;
+  align-items: stretch;
+  width: 100%;
+}
+.funding-terms {
+  font-family: 'Graphik', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #2A71B1;
+  text-decoration: none;
+  align-self: center;
 }
