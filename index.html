@@ -217,11 +217,62 @@
                       <div class="chat-bubble">How do I pay back my cash advance?</div>
                       <div class="chat-bubble">How do I apply for Clover Capital?</div>
                     </div>
+                    <div class="chat-bubbles chat-bubbles--home">
+                      <div class="chat-bubble" data-action="sales-report">Show me my sales report for this week.</div>
+                      <div class="chat-bubble" data-action="staff-schedule">Show me my staff schedule for today.</div>
+                      <div class="chat-thinking" aria-hidden="true">
+                        <span class="chat-thinking-label">Thinking</span>
+                        <i></i><i></i><i></i>
+                      </div>
+                      <div class="chat-response" aria-live="polite">
+                        <p class="chat-response-text">Here&rsquo;s your sales report for this week. You&rsquo;ve brought in <span class="chat-response-amount">$3,626.72</span> so far which is 1.8% higher than the same time last week.</p>
+                        <div class="report-card">
+                          <div class="report-metrics">
+                            <div class="report-metric">
+                              <p class="report-metric-label">Net sales</p>
+                              <p class="report-metric-value">$3,626.72</p>
+                              <div class="report-metric-delta">
+                                <img src="asset/arrow-up.svg" alt="" />
+                                <span>1.8%</span>
+                              </div>
+                              <p class="report-metric-sub">from 165 orders</p>
+                            </div>
+                            <div class="report-metric-divider" aria-hidden="true"></div>
+                            <div class="report-metric">
+                              <p class="report-metric-label">Items sold</p>
+                              <p class="report-metric-value">368</p>
+                              <div class="report-metric-delta">
+                                <img src="asset/arrow-up.svg" alt="" />
+                                <span>7</span>
+                              </div>
+                              <p class="report-metric-sub">2.23 per order</p>
+                            </div>
+                          </div>
+                          <div class="report-chart" aria-hidden="true">
+                            <img class="report-chart-area" src="asset/sales-chart-area.svg" alt="" />
+                            <img class="report-chart-line" src="asset/sales-chart-line.svg" alt="" />
+                            <div class="report-chart-axis">
+                              <span>Sun</span>
+                              <span>Mon</span>
+                              <span>Tue</span>
+                              <span>Wed</span>
+                            </div>
+                          </div>
+                          <button class="report-cta" type="button">
+                            <span>View full report</span>
+                            <img src="asset/link-arrow.svg" alt="" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="ai-input-wrap">
-                  <div class="ai-input">
-                    <span>Ask Clarity about...</span>
+                  <div class="ai-input" role="button" tabindex="0">
+                    <span class="ai-input-text">Ask Clarity about...</span>
+                    <button class="ai-input-send" type="button" aria-label="Send">
+                      <img src="asset/arrow-upblue.svg" alt="" />
+                    </button>
                   </div>
                 </div>
               </aside>
@@ -899,6 +950,14 @@
         document.body.setAttribute('data-view', view);
         titleEl.textContent = title;
         document.body.classList.add('insight-open');
+        // Clear the dashboard "Ask Clarity" state — its bubbles only apply
+        // on the home page, and the per-view chat bubbles take over below.
+        document.body.classList.remove(
+          'clarity-open',
+          'clarity-bubble-clicked',
+          'clarity-thinking',
+          'clarity-show-report'
+        );
         insight.classList.add('open');
         insight.setAttribute('aria-hidden', 'false');
         // Capital funding lives in the More section of the app; every other
@@ -964,6 +1023,57 @@
         close();
         if (window.__reviewTypewriter) window.__reviewTypewriter.cancel();
       });
+
+      // "Ask Clarity about..." on the home dashboard — tapping the input
+      // pops in two starter suggestions using the same bubble animation
+      // used inside insight views. Only applies when no insight is open;
+      // opening any insight clears the state automatically (see open()).
+      const aiInputEl = document.querySelector('.ai-input');
+      function resetClaritySubStates() {
+        document.body.classList.remove(
+          'clarity-bubble-clicked',
+          'clarity-thinking',
+          'clarity-show-report'
+        );
+      }
+      if (aiInputEl) {
+        aiInputEl.addEventListener('click', () => {
+          if (insight.classList.contains('open')) return;
+          // Toggle the input-open state. When closing, also tear down any
+          // sub-states so a re-open shows fresh suggestions, not the report.
+          if (document.body.classList.contains('clarity-open')) {
+            document.body.classList.remove('clarity-open');
+            resetClaritySubStates();
+          } else {
+            resetClaritySubStates();
+            document.body.classList.add('clarity-open');
+          }
+        });
+      }
+
+      // Tapping the "sales report" suggestion: bubble locks into a muted
+      // "submitted" state, the staff-schedule suggestion fades out, and
+      // after a ~1s thinking beat the AI response (text + report card)
+      // materializes underneath.
+      const salesReportBubble = document.querySelector('.chat-bubble[data-action="sales-report"]');
+      const THINK_DELAY_MS  = 280;   // wait for the bubble morph to settle
+      const THINK_HOLD_MS   = 1000;  // "thinking..." duration
+      if (salesReportBubble) {
+        salesReportBubble.addEventListener('click', () => {
+          // Only meaningful while the suggestions are visible and not
+          // already triggered.
+          if (!document.body.classList.contains('clarity-open')) return;
+          if (document.body.classList.contains('clarity-bubble-clicked')) return;
+          document.body.classList.add('clarity-bubble-clicked');
+          setTimeout(() => {
+            document.body.classList.add('clarity-thinking');
+            setTimeout(() => {
+              document.body.classList.remove('clarity-thinking');
+              document.body.classList.add('clarity-show-report');
+            }, THINK_HOLD_MS);
+          }, THINK_DELAY_MS);
+        });
+      }
 
       // Esc as a convenience — mirrors the back button behavior
       window.addEventListener('keydown', (e) => {
