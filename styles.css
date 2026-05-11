@@ -1808,15 +1808,7 @@ body.clarity-thinking .chat-thinking {
   display: block;
 }
 .review-source {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-family: 'Graphik', sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 20px;
-  color: #C7C7C7;
-  white-space: nowrap;          /* keep "Powered by Google" on one line */
+  display: none;
 }
 .google-logo {
   height: 16px;
